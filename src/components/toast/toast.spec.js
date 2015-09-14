@@ -2,16 +2,10 @@ describe('$mdToast service', function() {
 
   beforeEach(module('material.components.toast'));
 
-  afterEach(inject(function($timeout, $animate) {
-    $animate.flush();
-  }));
-
   function setup(options) {
     var promise;
     inject(function($mdToast, $rootScope, $$rAF, $timeout, $animate) {
       options = options || {};
-
-      $$rAF.flush();
 
       promise = $mdToast.show(options);
 
@@ -43,7 +37,7 @@ describe('$mdToast service', function() {
       expect(parent.find('md-toast')).toHaveClass('md-capsule');
       expect(parent.find('md-toast').attr('md-theme')).toBe('some-theme');
 
-      $animate.flush();
+      $timeout.flush();
 
       expect(openAndclosed).toBe(true);
     }));
@@ -190,7 +184,7 @@ describe('$mdToast service', function() {
         setup({
           template: '<md-toast class="three">'
         });
-        $animate.flush();
+
         expect($rootElement[0].querySelector('md-toast.one')).toBeFalsy();
         expect($rootElement[0].querySelector('md-toast.two')).toBeFalsy();
         expect($rootElement[0].querySelector('md-toast.three')).toBeTruthy();
@@ -264,11 +258,10 @@ describe('$mdToast service', function() {
           function(error){ fault = error;  }
         );
 
-        $animate.flush();
+        $timeout.flush();
 
         expect(result).toBe(true);
         expect(angular.isUndefined(fault)).toBe(true);
-
       }));
 
       it('and resolve `ok` with click on OK button', inject(function($mdToast, $rootScope, $timeout, $animate) {

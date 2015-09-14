@@ -85,7 +85,6 @@ describe('<md-select>', function() {
     try {
       inject(function($animate) {
         $animate.flush();
-        $animate.flush();
       });
     } catch(e) { }
   }
@@ -93,7 +92,6 @@ describe('<md-select>', function() {
   function waitForSelectClose() {
     try {
       inject(function($animate) {
-        $animate.flush();
         $animate.flush();
       });
     } catch(e) { }
@@ -125,7 +123,7 @@ describe('<md-select>', function() {
     expect(container.classList.contains('test')).toBe(true);
   }));
 
-  it('closes the menu if the element is destroyed', inject(function($document, $rootScope) {
+  it('closes the menu if the element is destroyed', inject(function($document, $rootScope, $timeout) {
     var called = false;
     $rootScope.onClose = function() {
       called = true;
@@ -139,6 +137,7 @@ describe('<md-select>', function() {
       target: angular.element($document.find('md-option')[0])
     });
     waitForSelectClose();
+    $timeout.flush();
 
     expect(called).toBe(true);
   }));

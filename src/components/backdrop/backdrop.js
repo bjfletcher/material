@@ -43,7 +43,6 @@ angular
       if ($animate.pin) $animate.pin(element, $rootElement);
 
       $$rAF(function () {
-
         // Often $animate.enter() is used to append the backDrop element
         // so let's wait until $animate is done...
         var parent = element.parent()[0];

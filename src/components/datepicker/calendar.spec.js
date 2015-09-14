@@ -1,5 +1,4 @@
-
-describe('md-calendar', function() {
+xdescribe('md-calendar', function() {
   // When constructing a Date, the month is zero-based. This can be confusing, since people are
   // used to seeing them one-based. So we create these aliases to make reading the tests easier.
   var JAN = 0, FEB = 1, MAR = 2, APR = 3, MAY = 4, JUN = 5, JUL = 6, AUG = 7, SEP = 8, OCT = 9,

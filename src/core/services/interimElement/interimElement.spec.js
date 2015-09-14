@@ -206,12 +206,10 @@ describe('$$interimElement service', function() {
           key: 'newValue'
         });
         flush();
-        flush();
         expect($compilerSpy.calls.mostRecent().args[0].key).toBe('newValue');
         $compilerSpy.calls.reset();
 
         interimTest.show(interimTest.preset());
-        flush();
         flush();
         expect($compilerSpy.calls.mostRecent().args[0].key).toBe('defaultValue');
         expect($compilerSpy.calls.mostRecent().args[0].key2).toBe('defaultValue2');
@@ -224,19 +222,15 @@ describe('$$interimElement service', function() {
           })
         );
         flush();
-        flush();
         expect($compilerSpy.calls.mostRecent().args[0].key).toBe('newValue');
         expect($compilerSpy.calls.mostRecent().args[0].key2).toBe('newValue2');
         
         $compilerSpy.calls.reset();
-        flush();
-        flush();
         interimTest.show(
           interimTest.preset({
             key2: 'newValue2'
           }).key2('superNewValue2')
         );
-        flush();
         flush();
         expect($compilerSpy.calls.mostRecent().args[0].key).toBe('defaultValue');
         expect($compilerSpy.calls.mostRecent().args[0].key2).toBe('superNewValue2');
@@ -349,8 +343,7 @@ describe('$$interimElement service', function() {
           .catch(function(fault){
             var i = fault;
           });
-
-        flush();
+        $timeout.flush();
         expect(autoClosed).toBe(true);
       }));
 

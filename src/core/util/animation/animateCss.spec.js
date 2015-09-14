@@ -22,11 +22,13 @@ describe('$animateCss', function() {
       ss.addRule('.to-remove', 'transition:0.5s linear all; border:10px solid black;');
 
       var asyncRun = angular.noop;
-      var asyncFlush = $injector.get('$$animateAsyncRun');
-      if (asyncFlush) {
-        asyncRun = function() {
-          asyncFlush.flush();
-        };
+      if ($injector.has('$$animateAsyncRun')) {
+        var asyncFlush = $injector.get('$$animateAsyncRun');
+        if (asyncFlush) {
+          asyncRun = function() {
+            asyncFlush.flush();
+          };
+        }
       }
 
       triggerAnimationStartFrame = function() {
@@ -42,8 +44,6 @@ describe('$animateCss', function() {
       moveAnimationClock = function(duration, delay) {
         var time = (delay || 0) + duration * 1.5;
         $timeout.flush(time * 1000);
-        asyncRun();
-        $$rAF.flush();
       }
     };
   }));

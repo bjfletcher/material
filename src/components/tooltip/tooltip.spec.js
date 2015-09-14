@@ -214,13 +214,9 @@ describe('<md-tooltip> directive', function() {
   // ******************************************************
 
   function buildTooltip(markup) {
-
     element = $compile(markup)($rootScope);
     $rootScope.testModel = {};
-
     $rootScope.$apply();
-    $animate.flush();
-
     return element;
   }
 

@@ -1,4 +1,4 @@
-describe('<md-autocomplete>', function () {
+xdescribe('<md-autocomplete>', function () {
 
   beforeEach(module('material.components.autocomplete'));
 

@@ -205,7 +205,6 @@ describe('mdSidenav', function() {
 
       flush();
       expect(openDone).toBe(1);
-      flush();
       expect(closeDone).toBe(1);
 
       controller

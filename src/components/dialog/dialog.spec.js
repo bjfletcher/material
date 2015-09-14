@@ -150,7 +150,6 @@ describe('$mdDialog', function() {
       });
 
       runAnimation();
-      runAnimation();
 
       container = angular.element(parent[0].querySelector('.md-dialog-container'));
       expect(container.length).toBe(0);
@@ -287,7 +286,6 @@ describe('$mdDialog', function() {
       });
 
       runAnimation();
-      runAnimation();
 
       container = angular.element(parent[0].querySelector('.md-dialog-container'));
       expect(container.length).toBe(0);
@@ -320,7 +318,6 @@ describe('$mdDialog', function() {
         type: 'keyup',
         keyCode: $mdConstant.KEY_CODE.ESCAPE
       });
-      runAnimation();
       runAnimation();
 
       container = angular.element(parent[0].querySelector('.md-dialog-container'));
@@ -471,8 +468,6 @@ describe('$mdDialog', function() {
       expect(parent.find('md-dialog').length).toBe(1);
 
       $rootElement.triggerHandler({type: 'keyup', keyCode: $mdConstant.KEY_CODE.ESCAPE});
-      runAnimation();
-
       expect(parent.find('md-dialog').length).toBe(1);
     }));
 
@@ -494,7 +489,6 @@ describe('$mdDialog', function() {
         type: 'click',
         target: container[0]
       });
-      runAnimation();
       runAnimation();
 
       expect(parent.find('md-dialog').length).toBe(0);
@@ -597,12 +591,8 @@ describe('$mdDialog', function() {
         '</md-dialog>',
       });
 
-      $rootScope.$apply();
       runAnimation();
-
       var container = angular.element(parent[0].querySelector('.md-dialog-container'));
-      runAnimation();
-
       expect($document.activeElement).toBe(undefined);
     }));
 

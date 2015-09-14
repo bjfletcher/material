@@ -22,7 +22,6 @@ describe('animate', function() {
           .catch(function() {
             expired = true;
           });
-        flush();
 
         expect(expired).not.toBe(true);
       }));
@@ -36,7 +35,6 @@ describe('animate', function() {
           .catch(function() {
             expired = true;
           });
-        flush();
 
         expect(expired).not.toBe(true);
       }));
