@@ -67,7 +67,10 @@
             '</div>' +
             '<div class="md-datepicker-calendar">' +
               '<md-calendar role="dialog" aria-label="{{::ctrl.dateLocale.msgCalendar}}" ' +
-                  'md-min-date="ctrl.minDate" md-max-date="ctrl.maxDate"' +
+                  'md-min-date="ctrl.minDate" md-max-date="ctrl.maxDate" ' +
+                  'date-types="ctrl.dateTypes" ' +
+                  'date-type-index="ctrl.dateTypeIndex" ' +
+                  'valid-date="ctrl.validDate" ' +
                   'ng-model="ctrl.date" ng-if="ctrl.isCalendarOpen">' +
               '</md-calendar>' +
             '</div>' +
@@ -76,7 +79,11 @@
       scope: {
         minDate: '=mdMinDate',
         maxDate: '=mdMaxDate',
-        placeholder: '@mdPlaceholder'
+        dateTypes: '=dateTypes',
+        dateTypeIndex: '=dateTypeIndex',
+        validDate: '=validDate',
+        placeholder: '@mdPlaceholder',
+        open: '=open'
       },
       controller: DatePickerCtrl,
       controllerAs: 'ctrl',
@@ -107,7 +114,7 @@
    *  This is computed statically now, but can be changed to be measured if the circumstances
    *  of calendar sizing are changed.
    */
-  var CALENDAR_PANE_HEIGHT = 368;
+  var CALENDAR_PANE_HEIGHT = 430;// 368;
 
   /**
    * Width of the calendar pane used to check if the pane is going outside the boundary of
@@ -225,6 +232,10 @@
     $scope.$on('$destroy', function() {
       self.detachCalendarPane();
     });
+
+    this.open = function(evt) {
+      self.openCalendarPane(evt);
+    };
   }
 
   /**

@@ -45,7 +45,7 @@
       template:
           '<table aria-hidden="true" class="md-calendar-day-header"><thead></thead></table>' +
           '<div class="md-calendar-scroll-mask">' +
-          '<md-virtual-repeat-container class="md-calendar-scroll-container" ' +
+            '<md-virtual-repeat-container class="md-calendar-scroll-container" ' +
                 'md-offset-size="' + (TBODY_SINGLE_ROW_HEIGHT - TBODY_HEIGHT) + '">' +
               '<table role="grid" tabindex="0" class="md-calendar" aria-readonly="true">' +
                 '<tbody role="rowgroup" md-virtual-repeat="i in ctrl.items" md-calendar-month ' +
@@ -54,10 +54,14 @@
                     'md-item-size="' + TBODY_HEIGHT + '"></tbody>' +
               '</table>' +
             '</md-virtual-repeat-container>' +
-          '</div>',
+          '</div>' +
+          '<div aria-hidden="true" class="md-calendar-legend"></div>',
       scope: {
         minDate: '=mdMinDate',
         maxDate: '=mdMaxDate',
+        dateTypes: '=dateTypes',
+        dateTypeIndex: '=dateTypeIndex',
+        validDate: '=validDate'
       },
       require: ['ngModel', 'mdCalendar'],
       controller: CalendarCtrl,
@@ -241,6 +245,7 @@
    */
   CalendarCtrl.prototype.buildInitialCalendarDisplay = function() {
     this.buildWeekHeader();
+    this.buildLegend();
     this.hideVerticalScrollbar();
 
     this.displayDate = this.selectedDate || this.today;
@@ -512,7 +517,25 @@
       row.appendChild(th);
     }
 
-    this.$element.find('thead').append(row);
+    // TODO (BF): Angular's jsLite doesn't seem to support this selector :/ so going raw...
+    angular.element(this.$element[0].querySelector('.md-calendar-day-header thead')).append(row);
+  };
+
+  CalendarCtrl.prototype.buildLegend = function() {
+    if (!this.dateTypes) return;
+    var types = this.dateTypes();
+    var els = document.createElement('div');
+    for (var i = 0; i < types.length; i++) {
+      var details = types[i];
+      var el = document.createElement('div');
+      el.classList.add("md-calendar-legend-item");
+      el.textContent = details.label;
+      el.style.background = details.bgColor;
+      el.style.color = details.fgColor;
+      els.appendChild(el);
+    }
+    // TODO (BF): Angular's jsLite doesn't seem to support this selector :/ so going raw...
+    angular.element(this.$element[0].querySelector('.md-calendar-legend')).append(els);
   };
 
     /**

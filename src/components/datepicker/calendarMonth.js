@@ -124,13 +124,24 @@
 
       var cellText = this.dateLocale.dates[opt_date.getDate()];
 
+      // BJF: disable/color icons here
       if (this.dateUtil.isDateWithinRange(opt_date,
-          this.calendarCtrl.minDate, this.calendarCtrl.maxDate)) {
+          this.calendarCtrl.minDate, this.calendarCtrl.maxDate)
+          && (!this.calendarCtrl.validDate || this.calendarCtrl.validDate(opt_date))) {
         // Add a indicator for select, hover, and focus states.
         var selectionIndicator = document.createElement('span');
         cell.appendChild(selectionIndicator);
         selectionIndicator.classList.add('md-calendar-date-selection-indicator');
         selectionIndicator.textContent = cellText;
+
+        // BJF: use these lines to add typed classes
+        if (!this.dateUtil.isSameDay(opt_date, calendarCtrl.selectedDate)) {
+          if (this.calendarCtrl.dateTypeIndex) {
+            var details = this.calendarCtrl.dateTypeIndex(opt_date);
+            selectionIndicator.style.background = details.bgColor;
+            selectionIndicator.style.color = details.fgColor;
+          }
+        }
 
         cell.addEventListener('click', calendarCtrl.cellClickHandler);
 
