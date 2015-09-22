@@ -305,9 +305,13 @@
     if (this.$attrs['ngDisabled']) {
       // The expression is to be evaluated against the directive element's scope and not
       // the directive's isolate scope.
-      this.$element.scope().$watch(this.$attrs['ngDisabled'], function(isDisabled) {
-        self.setDisabled(isDisabled);
-      });
+      var scope = this.$mdUtil.validateScope(this.$element) ? this.$element.scope() : null;
+
+      if ( scope ) {
+        scope.$watch(this.$attrs['ngDisabled'], function(isDisabled) {
+          self.setDisabled(isDisabled);
+        });
+      }
     }
 
     Object.defineProperty(this, 'placeholder', {
@@ -342,7 +346,11 @@
     var parsedDate = this.dateLocale.parseDate(inputString);
     this.dateUtil.setDateTimeToMidnight(parsedDate);
 
-    if (this.dateUtil.isValidDate(parsedDate) &&
+    if (inputString === '') {
+      this.ngModelCtrl.$setViewValue(null);
+      this.date = null;
+      this.inputContainer.classList.remove(INVALID_CLASS);
+    } else if (this.dateUtil.isValidDate(parsedDate) &&
         this.dateLocale.isDateComplete(inputString) &&
         this.dateUtil.isDateWithinRange(parsedDate, this.minDate, this.maxDate)) {
       this.ngModelCtrl.$setViewValue(parsedDate);
