@@ -516,8 +516,6 @@
       th.textContent = shortDays[(i + firstDayOfWeek) % 7];
       row.appendChild(th);
     }
-
-    // TODO (BF): Angular's jsLite doesn't seem to support this selector :/ so going raw...
     angular.element(this.$element[0].querySelector('.md-calendar-day-header thead')).append(row);
   };
 
@@ -534,11 +532,10 @@
       el.style.color = details.fgColor;
       els.appendChild(el);
     }
-    // TODO (BF): Angular's jsLite doesn't seem to support this selector :/ so going raw...
     angular.element(this.$element[0].querySelector('.md-calendar-legend')).append(els);
   };
 
-    /**
+  /**
    * Gets an identifier for a date unique to the calendar instance for internal
    * purposes. Not to be displayed.
    * @param {Date} date

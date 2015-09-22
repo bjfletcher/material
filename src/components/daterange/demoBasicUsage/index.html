@@ -1,0 +1,51 @@
+<div ng-controller="AppCtrl" style='padding: 40px;'>
+  <style>
+  
+  .md-daterange .md-datepicker-input {
+    min-width: auto
+  }
+  
+  .md-daterange .md-calendar-legend {
+    background: rgb(238,238,238);
+    width: 100%;
+  }
+  
+  .md-date-range-duration-calendar .md-calendar-legend-item {
+    display: inline-block;
+    padding: 10px;
+    margin: 8px 0 8px 8px;
+  }
+  
+  </style>
+  <md-content>
+
+    <h4>Date range</h4>
+
+    <div class="md-daterange" layout="row">
+
+      <span style="line-height: 48px;">Starting</span>
+
+      <md-datepicker
+        ng-model="startDate"
+        md-min-date="minStartDate"
+        md-max-date="maxStartDate"
+        date-types="types"
+        date-type-index="index"
+        valid-date="isValidStartDate">
+      </md-datepicker>
+
+      <span style="line-height: 48px; margin: 0 20px 15px 15px">for</span>
+
+      <md-select style="margin-top: 7px" ng-style="duration === 'Custom' && { 'display': 'none' }" ng-model="duration" placeholder="Duration">
+        <md-option ng-repeat="duration in durations" value="{{duration.label}}">{{duration.label}}</md-option>
+        <md-option value="Custom" ng-click="showEndCalendar()">Custom</md-option>
+      </md-select>
+
+      <div id="endCalendar"></div>
+
+    </div>
+
+    <h1>Testing, testing, the above shouldn't overlap or move this at all</h1>
+
+  </md-content>
+</div>
